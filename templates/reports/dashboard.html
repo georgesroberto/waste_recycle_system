@@ -12,7 +12,7 @@
         <h3>Your Waste Reports</h3>
       </div>
       <div>
-        <a href="{% url 'submit_report' %}" class="btn btn-success">
+        <a href="{% url 'reports:submit_report' %}" class="btn btn-success">
           <i class="fas fa-plus me-2"></i>Submit New Report
         </a>
       </div>
@@ -101,7 +101,7 @@
     {% else %}
     <div class="alert alert-info">
       You haven't submitted any waste reports yet.
-      <a href="{% url 'submit_report' %}">Submit a report now</a>.
+      <a href="{% url 'reports:submit_report' %}">Submit a report now</a>.
     </div>
     {% endif %}
   </div>

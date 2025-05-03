@@ -1,4 +1,5 @@
 # Create your models here.
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
@@ -11,10 +12,12 @@ class GarbageReport(models.Model):
     ]
     
     STATUS_CHOICES = [
-        ('Pending', 'Pending'),
-        ('Completed', 'Completed'),
+        ('Pending', 'Pending Collection'),
+        ('Completed', 'Collected'),
     ]
     
+    reported_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name='garbage_reports', null=True)
+
     name = models.CharField(max_length=255)
     mobile = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField()
@@ -22,7 +25,7 @@ class GarbageReport(models.Model):
     location = models.CharField(max_length=255)
     locationdescription = models.TextField()
     file = models.ImageField(upload_to='garbage_images/')
-    date = models.CharField(max_length=255, blank=True, null=True)  # Keep as char field for now to match the PHP version
+    date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
     
     def save(self, *args, **kwargs):

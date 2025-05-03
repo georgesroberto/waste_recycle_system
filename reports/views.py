@@ -9,17 +9,29 @@ from .models import GarbageReport
 # Create your views here.
 def dashboard(request):
     """Render the dashboard page."""
-    return render(request, "reports/dashboard.html")
+    reports = GarbageReport.objects.all()
+
+    if request.user.is_authenticated:
+        user_reports = reports.filter(reported_by=request.user)
+        print(user_reports)
+    else:
+        user_reports = None
+    context = {
+        'reports': user_reports,
+    }
+    return render(request, "reports/dashboard.html", context)
 
 @login_required
 def submit_report(request):
     if request.method == 'POST':
         form = GarbageReportForm(request.POST, request.FILES)
         if form.is_valid():
+            user = request.user
+            form.instance.reported_by = user
             report = form.save(commit=False)
             report.save()
             messages.success(request, 'Your garbage report has been submitted successfully!')
-            return redirect('dashboard')
+            return redirect('reports:dashboard')
     else:
         form = GarbageReportForm(initial={'name': request.user.first_name, 'email': request.user.email})
     
@@ -38,5 +50,5 @@ def update_status(request, report_id):
         report.status = 'Pending'
     report.save()
     messages.success(request, f'Report status updated to {report.status}')
-    return redirect('admin_dashboard')
+    return redirect('reports:dashboard')
 

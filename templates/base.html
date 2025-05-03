@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CharmAfrika {% block title %}{% endblock %}</title>
+
+    <!-- bootsrap cdn -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- Insert Extra Per Page CSS code -->
+    {% block extracss %}{% endblock extracss %}
+
+    <!-- Include Reusable code -->
+    {% comment %} {% include 'includes/bootstrap_css.html' %} {% endcomment %}
+  </head>
+  <body>
+    <!-- Include Reusable code -->
+    {% comment %} {% include 'includes/navbar.html' %} {% endcomment %}
+
+    <div class="container mt-4">{% block content %}{% endblock %}</div>
+
+    <!-- Insert Extra Per Page Javascript  code -->
+    {% block extrajs %}{% endblock extrajs %}
+  </body>
+</html>

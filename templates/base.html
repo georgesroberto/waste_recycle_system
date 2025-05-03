@@ -3,27 +3,161 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CharmAfrika {% block title %}{% endblock %}</title>
-
-    <!-- bootsrap cdn -->
+    <title>{% block title %}Waste Management System{% endblock %}</title>
+    <!-- Bootstrap CSS -->
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-
-    <!-- Insert Extra Per Page CSS code -->
-    {% block extracss %}{% endblock extracss %}
-
-    <!-- Include Reusable code -->
-    {% comment %} {% include 'includes/bootstrap_css.html' %} {% endcomment %}
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .navbar {
+        background-color: #2e8b57;
+      }
+      .footer {
+        background-color: #2e8b57;
+        color: white;
+        padding: 20px 0;
+      }
+      .btn-primary {
+        background-color: #2e8b57;
+        border-color: #2e8b57;
+      }
+      .btn-primary:hover {
+        background-color: #1d6841;
+        border-color: #1d6841;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        flex: 1;
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
   </head>
   <body>
-    <!-- Include Reusable code -->
-    {% comment %} {% include 'includes/navbar.html' %} {% endcomment %}
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <i class="fas fa-recycle me-2"></i>Waste Management System
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'reports:submit_report' %}"
+                  >Report Waste</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{ user.username }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="#">Dashboard</a>
+                  </li>
+                  {% if user.is_staff %}
+                  <li>
+                    <a class="dropdown-item" href="#">Admin Dashboard</a>
+                  </li>
+                  {% endif %}
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'users:logout' %}"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:register' %}"
+                  >Register</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-    <div class="container mt-4">{% block content %}{% endblock %}</div>
+    <main class="container my-4">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% endif %} {% block content %}{% endblock %}
+    </main>
 
-    <!-- Insert Extra Per Page Javascript  code -->
-    {% block extrajs %}{% endblock extrajs %}
+    <footer class="footer mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Waste Management System</h5>
+            <p>Making our environment cleaner, one report at a time.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p>
+              &copy; {% now "Y" %} Waste Management System. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
   </body>
 </html>

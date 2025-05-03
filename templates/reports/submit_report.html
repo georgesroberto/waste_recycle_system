@@ -1,0 +1,138 @@
+{% extends 'base.html' %} {% block title %}Submit Report - Waste Management
+System{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Submit Waste Report</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_name" class="form-label">Full Name</label>
+                {{ form.name.errors }}
+                <input
+                  type="text"
+                  name="name"
+                  id="id_name"
+                  value="{{ form.name.value }}"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_mobile" class="form-label">Mobile Number</label>
+                {{ form.mobile.errors }}
+                <input
+                  type="text"
+                  name="mobile"
+                  id="id_mobile"
+                  value="{{ form.mobile.value|default:'' }}"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="id_email" class="form-label">Email</label>
+            {{ form.email.errors }}
+            <input
+              type="email"
+              name="email"
+              id="id_email"
+              value="{{ form.email.value }}"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Waste Type</label>
+            {{ form.wastetype.errors }}
+            <div class="row">
+              {% for choice in form.wastetype %}
+              <div class="col-md-3">
+                <div class="form-check">
+                  {{ choice.tag }}
+                  <label
+                    class="form-check-label"
+                    for="{{ choice.id_for_label }}"
+                  >
+                    {{ choice.choice_label }}
+                  </label>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_location" class="form-label">Location</label>
+                {{ form.location.errors }}
+                <input
+                  type="text"
+                  name="location"
+                  id="id_location"
+                  class="form-control"
+                  required
+                />
+                <small class="form-text text-muted"
+                  >E.g., City, Area, etc.</small
+                >
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_file" class="form-label">Upload Image</label>
+                {{ form.file.errors }}
+                <input
+                  type="file"
+                  name="file"
+                  id="id_file"
+                  class="form-control"
+                  accept="image/*"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="id_locationdescription" class="form-label"
+              >Location Description</label
+            >
+            {{ form.locationdescription.errors }}
+            <textarea
+              name="locationdescription"
+              id="id_locationdescription"
+              class="form-control"
+              rows="3"
+              required
+            ></textarea>
+            <small class="form-text text-muted"
+              >Provide details to help locate the waste (landmarks, directions,
+              etc.)</small
+            >
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success btn-lg">
+              Submit Report
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

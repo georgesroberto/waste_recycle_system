@@ -1,0 +1,31 @@
+/* Custom styling for the waste management system */
+.bg-gradient-green {
+  background: linear-gradient(135deg, #2e8b57, #3cb371);
+  color: white;
+}
+
+.btn-success {
+  background-color: #2e8b57;
+  border-color: #2e8b57;
+}
+
+.btn-success:hover {
+  background-color: #1d6841;
+  border-color: #1d6841;
+}
+
+/* Custom cards and hover effects */
+.feature-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}

@@ -1,0 +1,140 @@
+{% extends 'base.html' %} {% block title %}Contact Us - Waste Management
+System{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <h1 class="mb-4">Contact Us</h1>
+    <p>
+      Have questions, suggestions, or feedback about our waste management
+      system? Feel free to reach out to us using the form below.
+    </p>
+
+    <div class="mt-4">
+      <div class="d-flex mb-3">
+        <div class="me-3">
+          <i class="fas fa-map-marker-alt text-success fa-2x"></i>
+        </div>
+        <div>
+          <h5>Address</h5>
+          <p>123 Green Street, Environmental City, EC 12345</p>
+        </div>
+      </div>
+
+      <div class="d-flex mb-3">
+        <div class="me-3">
+          <i class="fas fa-phone text-success fa-2x"></i>
+        </div>
+        <div>
+          <h5>Phone</h5>
+          <p>+1 (123) 456-7890</p>
+        </div>
+      </div>
+
+      <div class="d-flex mb-3">
+        <div class="me-3">
+          <i class="fas fa-envelope text-success fa-2x"></i>
+        </div>
+        <div>
+          <h5>Email</h5>
+          <p>info@wastemanagement.example</p>
+        </div>
+      </div>
+
+      <div class="d-flex">
+        <div class="me-3">
+          <i class="fas fa-clock text-success fa-2x"></i>
+        </div>
+        <div>
+          <h5>Working Hours</h5>
+          <p>
+            Monday - Friday: 9AM - 5PM<br />Saturday: 10AM - 2PM<br />Sunday:
+            Closed
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Send us a Message</h4>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_fname" class="form-label">First Name</label>
+                {{ form.fname.errors }}
+                <input
+                  type="text"
+                  name="fname"
+                  id="id_fname"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_lname" class="form-label">Last Name</label>
+                {{ form.lname.errors }}
+                <input
+                  type="text"
+                  name="lname"
+                  id="id_lname"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_contactEmail" class="form-label">Email</label>
+                {{ form.contactEmail.errors }}
+                <input
+                  type="email"
+                  name="contactEmail"
+                  id="id_contactEmail"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="id_contactPhone" class="form-label">Phone</label>
+                {{ form.contactPhone.errors }}
+                <input
+                  type="text"
+                  name="contactPhone"
+                  id="id_contactPhone"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="id_comment" class="form-label">Message</label>
+            {{ form.comment.errors }}
+            <textarea
+              name="comment"
+              id="id_comment"
+              class="form-control"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-success">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

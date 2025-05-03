@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+<!-- prettier-ignore -->
+{% block title %}About - Waste Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <h1 class="mb-4">About Our Waste Management System</h1>
+    <p>
+      Our waste management system is designed to make reporting and tracking
+      waste collection easy and efficient. We aim to create a cleaner
+      environment by facilitating the proper disposal of waste.
+    </p>
+
+    <h2 class="mt-5 mb-3">Our Mission</h2>
+    <p>
+      To create a clean and healthy environment for our community through
+      efficient waste management practices and community participation.
+    </p>
+
+    <h2 class="mt-5 mb-3">How We Work</h2>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">User Reports</h5>
+            <p class="card-text">
+              Users can report waste by providing details about the waste, its
+              location, and an image. This information is sent to our waste
+              management team.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Waste Collection</h5>
+            <p class="card-text">
+              Our team reviews the reports and schedules waste collection. Once
+              the waste is collected, the status is updated in the system.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mt-5 mb-3">Types of Waste We Handle</h2>
+    <div class="row mt-4">
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-apple-alt fa-3x text-success mb-3"></i>
+            <h5 class="card-title">Organic Waste</h5>
+            <p class="card-text">
+              Food waste, garden waste, and other biodegradable materials.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-wine-bottle fa-3x text-success mb-3"></i>
+            <h5 class="card-title">Inorganic Waste</h5>
+            <p class="card-text">
+              Plastics, glass, metals, and other non-biodegradable materials.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-home fa-3x text-success mb-3"></i>
+            <h5 class="card-title">Household Waste</h5>
+            <p class="card-text">
+              General waste from households including mixed waste.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-random fa-3x text-success mb-3"></i>
+            <h5 class="card-title">Mixed Waste</h5>
+            <p class="card-text">
+              Combination of different types of waste that need sorting.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mt-5 mb-3">Contact Us</h2>
+    <p>
+      If you have any questions or need assistance, feel free to
+      <a href="{% url 'contact' %}">contact us</a>. Our team is ready to help
+      you!
+    </p>
+  </div>
+</div>
+{% endblock %}

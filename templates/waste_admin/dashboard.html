@@ -1,0 +1,239 @@
+{% extends 'base.html' %} {% block title %}Admin Dashboard - Waste Management
+System{% endblock %} {% block extra_css %}
+<style>
+  .stats-card {
+    border-left: 4px solid;
+  }
+  .stats-card.total {
+    border-left-color: #2e8b57;
+  }
+  .stats-card.pending {
+    border-left-color: #ffc107;
+  }
+  .stats-card.completed {
+    border-left-color: #28a745;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <h1 class="mb-4">Admin Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <div class="card stats-card total">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <h5 class="card-title text-muted">Total Reports</h5>
+                <h2 class="card-text">{{ total_count }}</h2>
+              </div>
+              <div class="col-4 text-end">
+                <i class="fas fa-clipboard-list fa-3x text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4 mb-md-0">
+        <div class="card stats-card pending">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <h5 class="card-title text-muted">Pending</h5>
+                <h2 class="card-text">{{ pending_count }}</h2>
+              </div>
+              <div class="col-4 text-end">
+                <i class="fas fa-clock fa-3x text-warning"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card stats-card completed">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <h5 class="card-title text-muted">Completed</h5>
+                <h2 class="card-text">{{ completed_count }}</h2>
+              </div>
+              <div class="col-4 text-end">
+                <i class="fas fa-check-circle fa-3x text-success"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reports Table -->
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Waste Reports</h4>
+      </div>
+      <div class="card-body">
+        {% if reports %}
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Waste Type</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for report in reports %}
+              <tr>
+                <td>{{ report.id }}</td>
+                <td>{{ report.name }}</td>
+                <td>{{ report.location }}</td>
+                <td>{{ report.wastetype }}</td>
+                <td>{{ report.date }}</td>
+                <td>
+                  {% if report.status == 'Pending' %}
+                  <span class="badge bg-warning">Pending</span>
+                  {% else %}
+                  <span class="badge bg-success">Completed</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-info"
+                      data-bs-toggle="modal"
+                      data-bs-target="#detailsModal{{ report.id }}"
+                    >
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <a
+                      href="{% url 'update_status' report.id %}"
+                      class="btn btn-sm btn-primary"
+                    >
+                      <i class="fas fa-sync-alt"></i>
+                    </a>
+                  </div>
+
+                  <!-- Details Modal -->
+                  <div
+                    class="modal fade"
+                    id="detailsModal{{ report.id }}"
+                    tabindex="-1"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">
+                            Report Details #{{ report.id }}
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h6>Report Information</h6>
+                              <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <th>Name:</th>
+                                    <td>{{ report.name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Mobile:</th>
+                                    <td>{{ report.mobile }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Email:</th>
+                                    <td>{{ report.email }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Waste Type:</th>
+                                    <td>{{ report.wastetype }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Location:</th>
+                                    <td>{{ report.location }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Description:</th>
+                                    <td>{{ report.locationdescription }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Date:</th>
+                                    <td>{{ report.date }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Status:</th>
+                                    <td>
+                                      {% if report.status == 'Pending' %}
+                                      <span class="badge bg-warning"
+                                        >Pending</span
+                                      >
+                                      {% else %}
+                                      <span class="badge bg-success"
+                                        >Completed</span
+                                      >
+                                      {% endif %}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="col-md-6">
+                              <h6>Waste Image</h6>
+                              <img
+                                src="{{ report.file.url }}"
+                                alt="Waste Image"
+                                class="img-fluid"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <a
+                            href="{% url 'update_status' report.id %}"
+                            class="btn btn-primary"
+                          >
+                            {% if report.status == 'Pending' %} Mark as
+                            Completed {% else %} Mark as Pending {% endif %}
+                          </a>
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+          No waste reports have been submitted yet.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

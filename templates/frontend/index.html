@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+<!-- prettier-ignore -->
+{% block title %}Home - Waste Management System{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-6 d-flex align-items-center">
+    <div>
+      <h1 class="display-4 mb-4">Clean Environment, Better Future</h1>
+      <p class="lead">
+        Help keep our community clean by reporting waste that needs to be
+        collected. Our waste management system makes it easy to report waste and
+        track the collection status.
+      </p>
+      <div class="mt-4">
+        {% if user.is_authenticated %}
+        <a
+          href="{% url 'reports:submit_report' %}"
+          class="btn btn-primary btn-lg me-2"
+          >Report Waste</a
+        >
+        <a
+          href="{% url 'reports:dashboard' %}"
+          class="btn btn-outline-secondary btn-lg"
+          >View Your Reports</a
+        >
+        {% else %}
+        <a href="{% url 'users:register' %}" class="btn btn-primary btn-lg me-2"
+          >Sign Up</a
+        >
+        <a
+          href="{% url 'users:login' %}"
+          class="btn btn-outline-secondary btn-lg"
+          >Login</a
+        >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 text-center">
+    <img
+      src="https://placehold.co/600x400?text=Waste+Management+Image"
+      alt="Waste Management"
+      class="img-fluid rounded"
+    />
+  </div>
+</div>
+
+<div class="row mt-5 pt-5">
+  <div class="col-12 text-center mb-4">
+    <h2>How It Works</h2>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-user-plus fa-3x text-success mb-3"></i>
+        <h5 class="card-title">1. Create an Account</h5>
+        <p class="card-text">
+          Register with your email address to get started with our waste
+          management system.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-trash-alt fa-3x text-success mb-3"></i>
+        <h5 class="card-title">2. Report Waste</h5>
+        <p class="card-text">
+          Submit details about the waste, location, and upload an image of the
+          waste.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+        <h5 class="card-title">3. Track Collection</h5>
+        <p class="card-text">
+          Track the status of your waste collection requests through your
+          dashboard.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5 pt-3">
+  <div class="col-12 text-center mb-4">
+    <h2>Why Choose Our System</h2>
+  </div>
+  <div class="col-md-3 mb-4">
+    <div class="d-flex">
+      <div class="me-3">
+        <i class="fas fa-bolt text-success fa-2x"></i>
+      </div>
+      <div>
+        <h5>Fast Response</h5>
+        <p>Quick processing and response to waste collection requests.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-4">
+    <div class="d-flex">
+      <div class="me-3">
+        <i class="fas fa-map-marker-alt text-success fa-2x"></i>
+      </div>
+      <div>
+        <h5>Precise Location</h5>
+        <p>Accurate location reporting for efficient collection.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-4">
+    <div class="d-flex">
+      <div class="me-3">
+        <i class="fas fa-history text-success fa-2x"></i>
+      </div>
+      <div>
+        <h5>Status Tracking</h5>
+        <p>Real-time updates on waste collection status.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-4">
+    <div class="d-flex">
+      <div class="me-3">
+        <i class="fas fa-leaf text-success fa-2x"></i>
+      </div>
+      <div>
+        <h5>Eco-Friendly</h5>
+        <p>Promoting a cleaner and healthier environment.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

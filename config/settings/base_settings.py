@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # User-defined apps
     "frontend",
     "users",
+    "reports",
     
     # Third-party apps
 ]

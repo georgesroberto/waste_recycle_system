@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+<!-- prettier-ignore -->
+
+{% block title %}Dashboard - Waste Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <h1 class="mb-4">Your Dashboard</h1>
+    <div class="d-flex justify-content-between mb-4">
+      <div>
+        <h3>Your Waste Reports</h3>
+      </div>
+      <div>
+        <a href="{% url 'submit_report' %}" class="btn btn-success">
+          <i class="fas fa-plus me-2"></i>Submit New Report
+        </a>
+      </div>
+    </div>
+
+    {% if reports %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Waste Type</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in reports %}
+          <tr>
+            <td>{{ report.id }}</td>
+            <td>{{ report.location }}</td>
+            <td>{{ report.wastetype }}</td>
+            <td>{{ report.date }}</td>
+            <td>
+              {% if report.status == 'Pending' %}
+              <span class="badge bg-warning">Pending</span>
+              {% else %}
+              <span class="badge bg-success">Completed</span>
+              {% endif %}
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-sm btn-info"
+                data-bs-toggle="modal"
+                data-bs-target="#imageModal{{ report.id }}"
+              >
+                View
+              </button>
+
+              <!-- Image Modal -->
+              <div
+                class="modal fade"
+                id="imageModal{{ report.id }}"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Waste Image</h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body text-center">
+                      <img
+                        src="{{ report.file.url }}"
+                        alt="Waste Image"
+                        class="img-fluid"
+                      />
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+      You haven't submitted any waste reports yet.
+      <a href="{% url 'submit_report' %}">Submit a report now</a>.
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

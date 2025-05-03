@@ -19,6 +19,7 @@ SECRET_KEY = config('SECRET_KEY')
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -125,3 +126,36 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'users:login'
 
+# Jazzmin
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Waste Recycle Admin",
+    "site_header": "Waste Recycle System",
+    "site_brand": "WasteRecycle",
+    "welcome_sign": "Welcome to Waste Management Dashboard",
+    "copyright": "Waste Recycle",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": ["auth"],
+    "order_with_respect_to": ["reports", "users"],
+
+    # Custom links (if needed)
+    "custom_links": {
+        "reports": [{
+            "name": "Submit Issue",
+            "url": "http://localhost:8000/contact",
+            "icon": "fas fa-envelope",
+            "permissions": ["reports.view_garbagereport"]
+        }]
+    },
+
+    # UI tweaks
+    "show_ui_builder": False,
+    "related_modal_active": True,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "users.CustomUser": "fas fa-user",
+        "reports.Contact": "fas fa-address-book",
+        "reports.GarbageReport": "fas fa-dumpster",
+    },
+}
